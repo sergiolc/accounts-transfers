@@ -13,7 +13,7 @@ public class TransactionDAO {
         return transactions.get(id);
     }
 
-    public Transaction getByRequestId(String requestId) {
+    public synchronized Transaction getByRequestId(String requestId) {
 
         for (Transaction transaction : transactions.values()) {
             if (transaction.getRequestId().equals(requestId)) {
@@ -24,7 +24,7 @@ public class TransactionDAO {
         return null;
     }
 
-    public List<Transaction> getAll() {
+    public synchronized List<Transaction> getAll() {
         List<Transaction> result = new ArrayList<Transaction>();
 
         for (UUID key : transactions.keySet()) {
@@ -34,7 +34,7 @@ public class TransactionDAO {
         return result;
     }
 
-    public Transaction save(Transaction transaction) {
+    public synchronized Transaction save(Transaction transaction) {
         transactions.put(transaction.getId(), transaction);
         return transaction;
     }

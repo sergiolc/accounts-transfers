@@ -37,16 +37,16 @@ public class Account {
         this.currency = currency;
     }
 
-    public BigDecimal getBalance() {
+    public synchronized BigDecimal getBalance() {
         return balance;
     }
 
-    public void deposit(BigDecimal amount) {
+    public synchronized void deposit(BigDecimal amount) {
         this.balance = this.balance.add(amount);
     }
 
-    public void withdraw(BigDecimal amount) throws AccountBalanceException {
-        if (this.balance.subtract(amount).doubleValue() > 0) {
+    public synchronized void withdraw(BigDecimal amount) throws AccountBalanceException {
+        if (this.balance.subtract(amount).doubleValue() >= 0) {
             this.balance = this.balance.subtract(amount);
         } else {
             throw new AccountBalanceException();

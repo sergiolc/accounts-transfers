@@ -73,7 +73,7 @@ public class Transaction {
         this.requestId = requestId;
     }
 
-    public TransactionStatus getStatus() {
+    public synchronized TransactionStatus getStatus() {
         return status;
     }
 
@@ -117,11 +117,11 @@ public class Transaction {
         this.reference = reference;
     }
 
-    public void completed() {
+    public synchronized void completed() {
         this.status = TransactionStatus.Completed;
     }
 
-    public void declined() {
+    public synchronized void declined() {
         this.status = TransactionStatus.Declined;
     }
 

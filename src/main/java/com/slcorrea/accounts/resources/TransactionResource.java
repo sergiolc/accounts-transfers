@@ -81,7 +81,7 @@ public class TransactionResource {
             transaction.completed();
         } catch (AccountBalanceException e) {
             transaction.declined();
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() + "-" + sourceAccount.getBalance());
         }
 
         return Response.status(Response.Status.OK).entity(transaction).build();
